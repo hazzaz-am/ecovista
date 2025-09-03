@@ -10,19 +10,16 @@ export default function LocationDetector() {
 	const router = useRouter();
 	const pathName = usePathname();
 
-	console.log("searchparams", searchParams);
 
 	useEffect(() => {
 		setLoading(true);
 		const params = new URLSearchParams(searchParams);
-		console.log("params", params);
 
 		if (navigator.geolocation) {
 			navigator.geolocation.getCurrentPosition((position) => {
 				const crds = position.coords;
 				params.set("latitude", crds.latitude);
 				params.set("longitude", crds.longitude);
-				setLoading(false);
 				router.push(`/current?${params.toString()}`);
 			});
 		}
